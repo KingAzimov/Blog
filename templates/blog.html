@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+</head>
+<body>
+    <hr>
+    <br>
+    <h1>Hamma bloglar</h1>
+    <br>
+    <hr>
+
+    <hr>
+    {% for i in maqolalar %}
+    <a href="/maqola/{{i.id}}/">
+        <h1>{{i.sarlavha}}</h1>
+    {% endfor %}
+    <br>
+    <hr>
+    <form method="post" action="/blog/"> {% csrf_token %}
+    <input type="text" name="s" placeholder="sarlavha">
+    <input type="date" name="sana" placeholder="sana">
+    <input type="text" name="m" placeholder="mavzu">
+    <input type="text" name="matn" placeholder="matn">
+    <input type="text" name="i" placeholder="muallif ismi">
+    <button type="submit">Submit</button>
+</body>
+</html>
