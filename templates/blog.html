@@ -10,11 +10,9 @@
     <h1>Hamma bloglar</h1>
     <br>
     <hr>
-
-    <hr>
-    {% for i in maqolalar %}
+    {% for i in maqola %}
     <a href="/maqola/{{i.id}}/">
-        <h1>{{i.sarlavha}}</h1>
+        <h1>{{i.sarlavha}}</h1></a>
     {% endfor %}
     <br>
     <hr>

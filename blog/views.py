@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views import *
 from .models import *
@@ -19,7 +19,7 @@ class BlogView(View):
     def get(self, request):
         if request.user.is_authenticated:
             data={
-                'maqolalar':Maqola.objects.filter(muallif__user=request.user)
+                'maqola':Maqola.objects.filter(muallif__user=request.user)
             }
             return render(request, 'blog.html', data)
         else:
@@ -31,7 +31,7 @@ class BlogView(View):
                 sana=request.POST.get("sana"),
                 mavzu=request.POST.get("m"),
                 matn=request.POST.get("matn"),
-                muallif=Muallif.objects.filter(ism__contains="i")[0]
+                muallif=Muallif.objects.get(ism__contains="i")
             )
             return redirect('/blog/')
         else:
@@ -39,25 +39,20 @@ class BlogView(View):
 
 class RegisterView(View):
     def get(self, request):
-        if request.user.is_authenticated:
             return render(request, 'register.html')
-        else:
-            return redirect('/')
+
     def post(self, request):
-        if request.user.is_authenticated:
             User.objects.create_user(
                 username=request.POST.get('l'),
                 password=request.POST.get('p')
                 )
             return redirect('/')
-        else:
-            return redirect('/')
+
 class LogoutView(View):
     def get(self, request):
-        if request.user.is_authenticated:
-            return redirect('/')
-        else:
-            return redirect('/')
+        logout(request)
+        return redirect('/')
+
 class MaqolaView(View):
     def get(self, request, pk):
         if request.user.is_authenticated:

@@ -13,5 +13,5 @@ class Maqola(models.Model):
     sana = models.DateField()
     mavzu = models.CharField(max_length=50)
     matn = models.CharField(max_length=100)
-    muallif = models.ForeignKey(Muallif, on_delete=models.CASCADE)
+    muallif = models.OneToOneField(Muallif, on_delete=models.CASCADE)
     def __str__(self):return f"{self.sarlavha}"
